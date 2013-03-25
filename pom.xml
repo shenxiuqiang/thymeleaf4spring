@@ -17,9 +17,15 @@
 	<dependencies>
 	
 		<dependency>
-			<groupId>org.sevensource</groupId>
-			<artifactId>wro4spring</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-tiles2</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>nz.net.ultraq.web.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>1.0.6</version>
 			<optional>true</optional>
 		</dependency>
 	
@@ -31,11 +37,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-tiles2</artifactId>
 		</dependency>
 		
 		<dependency>

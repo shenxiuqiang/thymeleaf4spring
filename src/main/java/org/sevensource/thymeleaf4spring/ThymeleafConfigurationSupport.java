@@ -10,26 +10,16 @@ import org.thymeleaf.extras.tiles2.spring.web.view.ThymeleafTilesView;
 import org.thymeleaf.spring3.SpringTemplateEngine;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 
 public abstract class ThymeleafConfigurationSupport {
 	
+	public final static String DEFAULT_TEMPLATE_CHARSET = "UTF-8";
+	public final static String DEFAULT_TEMPLATE_MODE = "HTML5";
+	public final static String DEFAULT_TEMPLATE_SUFFIX = ".html";
 	
-	/**
-	 * Create a Thymleaf specific {@link org.springframework.web.servlet.view.tiles2.TilesConfigurer}<br>
-	 * enables checkRefresh on the Tiles definition if {@link #isDevelopment()} is true
-	 * 
-	 * @return
-	 * TODO upgrade to Tiles 3
-	 */
-	@Bean
-	public ThymeleafTilesConfigurer thymeleafTilesConfigurer() {
-		ThymeleafTilesConfigurer thymeleafTilesConfigurer = new ThymeleafTilesConfigurer();
-		thymeleafTilesConfigurer.setCheckRefresh( isDevelopment() );
-		thymeleafTilesConfigurer.setDefinitions( getTilesDefinitions() );
-		
-		return configureTilesConfigurer( thymeleafTilesConfigurer );
-	}
 	
 	/**
 	 * Creates a Thymeleaf {@link ViewResolver}<br>
@@ -42,6 +32,7 @@ public abstract class ThymeleafConfigurationSupport {
 		thymeleafViewResolver.setCache( isCaching() );
 		thymeleafViewResolver.setViewClass(ThymeleafTilesView.class);
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
+		
 		return configureViewResolver( thymeleafViewResolver );
 	}
 	
@@ -57,6 +48,27 @@ public abstract class ThymeleafConfigurationSupport {
 		return configureTemplateEngine( templateEngine );
 	}
 	
+	/**
+	 * Helper to instantiate new {@link ServletContextTemplateResolver} and set some common options
+	 */
+	protected ServletContextTemplateResolver createServletContextTemplateResolver() {
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+		
+		templateResolver.setCharacterEncoding( DEFAULT_TEMPLATE_CHARSET );
+		templateResolver.setSuffix( DEFAULT_TEMPLATE_SUFFIX );
+		templateResolver.setTemplateMode( DEFAULT_TEMPLATE_MODE );
+		
+		if(isCaching()) {
+			templateResolver.setCacheTTLMs( TemplateResolver.DEFAULT_CACHE_TTL_MS );
+			templateResolver.setCacheable( TemplateResolver.DEFAULT_CACHEABLE );
+		} else {
+			templateResolver.setCacheTTLMs(0L);
+			templateResolver.setCacheable( false );
+		}
+		
+		return templateResolver;
+	}
+	
 	
 	/**
 	 * should caching of Templates be enabled?
@@ -67,15 +79,10 @@ public abstract class ThymeleafConfigurationSupport {
 	}
 	
 	/**
-	 * if true, Thymeleaf caching is disabled and Tiles definition refresh is enabled
+	 * if true, Thymeleaf caching is disabled and DefaultAbstractThymeleafTilesConfiguration definition refresh is enabled
 	 * @return
 	 */
 	protected abstract boolean isDevelopment();
-	
-	/**
-	 * @return an array of Tiles definitions to configure Tiles from
-	 */
-	protected abstract String[] getTilesDefinitions();
 	
 	/**
 	 * Create additional Thymeleaf Dialects
@@ -87,15 +94,6 @@ public abstract class ThymeleafConfigurationSupport {
 	 * @return {@link ITemplateResolver}s that should be used by Thymeleaf
 	 */
 	protected abstract Set<ITemplateResolver> getTemplateResolvers();
-	
-	/**
-	 * can be overridden by subclasses to further configure the {@link ThymeleafTilesConfigurer}
-	 * @param tilesConfigurer
-	 * @return
-	 */
-	protected ThymeleafTilesConfigurer configureTilesConfigurer(ThymeleafTilesConfigurer tilesConfigurer) {
-		return tilesConfigurer;
-	}
 	
 	/**
 	 * can be overridden by subclasses to further configure the {@link ThymeleafViewResolver}

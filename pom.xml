@@ -13,40 +13,48 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Thymeleaf 4 Spring</name>
 	<description>Just some small utilities to quickly configure Thymeleaf with Spring MVC</description>
-	
+
 	<dependencies>
-	
 		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-tiles2</artifactId>
-			<optional>true</optional>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring3</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>nz.net.ultraq.web.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 			<version>1.0.6</version>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-conditionalcomments</artifactId>
 			<version>2.0.0</version>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
 			<version>2.0.0</version>
 			<optional>true</optional>
 		</dependency>
-	
-	
+
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-tiles2</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- required for tiles -->
@@ -55,23 +63,9 @@
 			<artifactId>spring-webmvc</artifactId>
 			<optional>true</optional>
 		</dependency>
-	
-	<!-- 
-
-		
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring3</artifactId>
-		</dependency>
-		 -->
 	</dependencies>
-	
-	
+
+
 	<developers>
 		<developer>
 			<id>pgaschuetz</id>
@@ -84,7 +78,7 @@
 		<connection>scm:git:git@github.com:sevensource/thymeleaf4spring.git</connection>
 		<developerConnection>scm:git:git@github.com:sevensource/thymeleaf4spring.git</developerConnection>
 		<tag>HEAD</tag>
-  </scm>
+	</scm>
 
 	<licenses>
 		<license>

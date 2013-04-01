@@ -5,9 +5,10 @@ import java.util.Set;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.ViewResolver;
 import org.thymeleaf.dialect.IDialect;
-import org.thymeleaf.extras.tiles2.spring.web.configurer.ThymeleafTilesConfigurer;
 import org.thymeleaf.extras.tiles2.spring.web.view.ThymeleafTilesView;
 import org.thymeleaf.spring3.SpringTemplateEngine;
+import org.thymeleaf.spring3.view.AbstractThymeleafView;
+import org.thymeleaf.spring3.view.ThymeleafView;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -30,7 +31,7 @@ public abstract class ThymeleafConfigurationSupport {
 	public ThymeleafViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 		thymeleafViewResolver.setCache( isCaching() );
-		thymeleafViewResolver.setViewClass(ThymeleafTilesView.class);
+		thymeleafViewResolver.setViewClass(getViewClass());
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
 		
 		return configureViewResolver( thymeleafViewResolver );
@@ -83,6 +84,14 @@ public abstract class ThymeleafConfigurationSupport {
 	 * @return
 	 */
 	protected abstract boolean isDevelopment();
+	
+	
+	/**
+	 * Get the actual View implementation class, usually {@link ThymeleafTilesView} or {@link ThymeleafView}
+	 * @return
+	 */
+	protected abstract Class<? extends AbstractThymeleafView> getViewClass();
+	
 	
 	/**
 	 * Create additional Thymeleaf Dialects

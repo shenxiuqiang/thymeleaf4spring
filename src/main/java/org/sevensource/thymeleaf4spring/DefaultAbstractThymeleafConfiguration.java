@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.spring3.dialect.SpringStandardDialect;
+import org.thymeleaf.spring3.view.AbstractThymeleafView;
+import org.thymeleaf.spring3.view.ThymeleafView;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -15,34 +17,46 @@ public abstract class DefaultAbstractThymeleafConfiguration extends ThymeleafCon
 
 	private final static Logger logger = LoggerFactory.getLogger(DefaultAbstractThymeleafConfiguration.class);
 	
-	private final static String LAYOUT_DIALECT_CLASS = "nz.net.ultraq.web.thymeleaf.LayoutDialect";
-	private final static boolean layoutDialectAvailable = ClassUtils.isPresent(LAYOUT_DIALECT_CLASS, DefaultAbstractThymeleafConfiguration.class.getClassLoader());
+	private final static String[] DIALECTS = {
+		"nz.net.ultraq.web.thymeleaf.LayoutDialect",
+		"org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect",
+		"org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect",
+		"org.thymeleaf.extras.tiles2.dialect.TilesDialect"
+	};
 
 	
 	/**
-	 * by default, a {@link SpringStandardDialect} is added. If LayoutDialect is
-	 * present on the classpath, this will be added as well.
+	 * by default, a {@link SpringStandardDialect} is added. 
 	 * 
 	 * @see https://github.com/ultraq/thymeleaf-layout-dialect
+	 * @see https://github.com/thymeleaf/thymeleaf-extras-springsecurity3
+	 * @see https://github.com/thymeleaf/thymeleaf-extras-conditionalcomments
 	 */
 	@Override
 	protected Set<IDialect> getAdditionalDialects() {
 		Set<IDialect> dialects = new HashSet<IDialect>();
 		dialects.add(new SpringStandardDialect());
+	
 		
-		if(layoutDialectAvailable) {
-			try {
-				Class<?> layoutDialectClass = ClassUtils.forName(LAYOUT_DIALECT_CLASS, this.getClass().getClassLoader());
-				Object oLayoutDialect = layoutDialectClass.newInstance();
-				IDialect layoutDialect = (IDialect) oLayoutDialect;
-				dialects.add(layoutDialect);
-			} catch (Exception e) {
-				logger.error("Error creating LayoutDialect", e);
+		for(String dialect : DIALECTS) {
+			if(ClassUtils.isPresent(dialect, DefaultAbstractThymeleafConfiguration.class.getClassLoader())) {
+				if (logger.isInfoEnabled()) {
+					logger.info("Adding Dialect {}", dialect);
+				}
+				try {
+					Class<?> layoutDialectClass = ClassUtils.forName(dialect, this.getClass().getClassLoader());
+					Object oLayoutDialect = layoutDialectClass.newInstance();
+					IDialect layoutDialect = (IDialect) oLayoutDialect;
+					dialects.add(layoutDialect);
+				} catch (Exception e) {
+					logger.error("Error creating LayoutDialect", e);
+				}
 			}
 		}
 		
 		return dialects;
 	}
+	
 	
 	/**
 	 * @see DefaultAbstractThymeleafConfiguration#layoutTemplateResolver()
@@ -54,6 +68,12 @@ public abstract class DefaultAbstractThymeleafConfiguration extends ThymeleafCon
 		templateResolvers.add( layoutTemplateResolver() );
 		templateResolvers.add( viewsTemplateResolver() );
 		return templateResolvers;
+	}
+	
+	
+	@Override
+	protected Class<? extends AbstractThymeleafView> getViewClass() {
+		return ThymeleafView.class;
 	}
 	
 	

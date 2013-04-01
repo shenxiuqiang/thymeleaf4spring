@@ -1,26 +1,15 @@
-package org.sevensource.thymeleaf4spring;
+package org.sevensource.thymeleaf4spring.tiles2;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
-import org.thymeleaf.dialect.IDialect;
-import org.thymeleaf.extras.tiles2.dialect.TilesDialect;
 import org.thymeleaf.extras.tiles2.spring.web.configurer.ThymeleafTilesConfigurer;
 
-public abstract class DefaultAbstractThymeleafTilesConfiguration extends DefaultAbstractThymeleafConfiguration {
 
+public abstract class DefaultAbstractThymeleafTilesConfiguration {
 	protected final static String DEFAULT_TILES_DEFS = "/WEB-INF/layouts/tiles-defs.xml";
 	
-	/**
-	 * adds {@link TilesDialect} and any dialects specified by the superclasses.
-	 */
-	@Override
-	protected Set<IDialect> getAdditionalDialects() {
-		Set<IDialect> dialects = super.getAdditionalDialects();
-		dialects.add(new TilesDialect());
-		return dialects;
-	}
 	
 	/**
 	 * @return an array of DefaultAbstractThymeleafTilesConfiguration definitions to
@@ -55,4 +44,6 @@ public abstract class DefaultAbstractThymeleafTilesConfiguration extends Default
 	protected ThymeleafTilesConfigurer configureTilesConfigurer(ThymeleafTilesConfigurer tilesConfigurer) {
 		return tilesConfigurer;
 	}
+	
+	protected abstract boolean isDevelopment();
 }

@@ -15,7 +15,7 @@ It
 1. Create a @Configuration class
 ```java
 @Configuration
-public class DefaultAbstractThymeleafConfiguration extends DefaultThymeleaf4SpringWroDialectConfiguration {
+public class ThymeleafMVCConfiguration extends DefaultAbstractThymeleafConfiguration {
   	@Override
 		protected boolean isDevelopment() {
 			return true;
@@ -36,7 +36,7 @@ public class DispatcherConfig{
 
 See https://github.com/thymeleaf/thymeleaf-extras-tiles2 for functionality details.
 
-1. Extend _DefaultAbstractThymeleafTilesConfiguration_ instead of _DefaultThymeleaf4SpringWroDialectConfiguration_
+1. Extend _DefaultAbstractThymeleafTilesConfiguration_ instead of _DefaultAbstractThymeleafConfiguration_
 
 2. Create a _tiles-defs.xml_:
 ```xml

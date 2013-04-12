@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 	<groupId>org.sevensource</groupId>
 	<artifactId>thymeleaf4spring</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>Thymeleaf 4 Spring</name>
 	<description>Just some small utilities to quickly configure Thymeleaf with Spring MVC</description>
 
@@ -69,7 +69,7 @@
 		<url>http://github.com/sevensource/thymeleaf4spring</url>
 		<connection>scm:git:git@github.com:sevensource/thymeleaf4spring.git</connection>
 		<developerConnection>scm:git:git@github.com:sevensource/thymeleaf4spring.git</developerConnection>
-		<tag>v0.0.1</tag>
+		<tag>v0.0.2</tag>
 	</scm>
 
 	<licenses>

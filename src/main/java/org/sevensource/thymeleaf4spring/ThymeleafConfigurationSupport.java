@@ -30,9 +30,11 @@ public abstract class ThymeleafConfigurationSupport {
 	@Bean
 	public ThymeleafViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+		thymeleafViewResolver.setCharacterEncoding(getCharacterEncoding());
 		thymeleafViewResolver.setCache( isCaching() );
 		thymeleafViewResolver.setViewClass(getViewClass());
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
+		thymeleafViewResolver.setCharacterEncoding(getCharacterEncoding());
 		
 		return configureViewResolver( thymeleafViewResolver );
 	}
@@ -50,12 +52,13 @@ public abstract class ThymeleafConfigurationSupport {
 	}
 	
 	/**
-	 * Helper to instantiate new {@link ServletContextTemplateResolver} and set some common options
+	 * Helper to instantiate new {@link ServletContextTemplateResolver} and set
+	 * some common options
 	 */
 	protected ServletContextTemplateResolver createServletContextTemplateResolver() {
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
 		
-		templateResolver.setCharacterEncoding( DEFAULT_TEMPLATE_CHARSET );
+		templateResolver.setCharacterEncoding( getCharacterEncoding() );
 		templateResolver.setSuffix( DEFAULT_TEMPLATE_SUFFIX );
 		templateResolver.setTemplateMode( DEFAULT_TEMPLATE_MODE );
 		
@@ -70,6 +73,16 @@ public abstract class ThymeleafConfigurationSupport {
 		return templateResolver;
 	}
 	
+	
+	/**
+	 * 
+	 * @return the Character Encoding to be used for {@link TemplateResolver}
+	 *         and {@link ViewResolver} (default:
+	 *         {@link ThymeleafConfigurationSupport#DEFAULT_TEMPLATE_CHARSET}
+	 */
+	protected String getCharacterEncoding() {
+		return DEFAULT_TEMPLATE_CHARSET;
+	}
 	
 	/**
 	 * should caching of Templates be enabled?

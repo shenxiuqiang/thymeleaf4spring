@@ -34,6 +34,7 @@ public abstract class ThymeleafConfigurationSupport {
 		thymeleafViewResolver.setCache( isCaching() );
 		thymeleafViewResolver.setViewClass(getViewClass());
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
+		thymeleafViewResolver.setCharacterEncoding(getCharacterEncoding());
 		
 		return configureViewResolver( thymeleafViewResolver );
 	}

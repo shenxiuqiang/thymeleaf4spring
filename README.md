@@ -50,3 +50,11 @@ See https://github.com/thymeleaf/thymeleaf-extras-tiles2 for functionality detai
       </definition>
 </tiles-definitions>
 ```
+
+## Dialects automatically detected
+_DefaultAbstractThymeleafConfiguration_ automatically detects the following dialects in the classpath:
+	 * https://github.com/ultraq/thymeleaf-layout-dialect
+	 * https://github.com/thymeleaf/thymeleaf-extras-springsecurity3
+	 * https://github.com/thymeleaf/thymeleaf-extras-conditionalcomments
+	 * https://github.com/thymeleaf/thymeleaf-extras-tiles2
+	 * https://github.com/mxab/thymeleaf-extras-data-attribute

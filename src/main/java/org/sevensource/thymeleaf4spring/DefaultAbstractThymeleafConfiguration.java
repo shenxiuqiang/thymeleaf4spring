@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
 import org.thymeleaf.dialect.IDialect;
-import org.thymeleaf.spring3.dialect.SpringStandardDialect;
-import org.thymeleaf.spring3.view.AbstractThymeleafView;
-import org.thymeleaf.spring3.view.ThymeleafView;
+import org.thymeleaf.spring4.dialect.SpringStandardDialect;
+import org.thymeleaf.spring4.view.AbstractThymeleafView;
+import org.thymeleaf.spring4.view.ThymeleafView;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -18,10 +18,10 @@ public abstract class DefaultAbstractThymeleafConfiguration extends ThymeleafCon
 	private final static Logger logger = LoggerFactory.getLogger(DefaultAbstractThymeleafConfiguration.class);
 	
 	private final static String[] DIALECTS = {
-		"nz.net.ultraq.web.thymeleaf.LayoutDialect",
+		"nz.net.ultraq.thymeleaf.LayoutDialect",
 		"org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect",
 		"org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect",
-		"org.thymeleaf.extras.tiles2.dialect.TilesDialect"
+		"com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect"
 	};
 
 	
@@ -31,6 +31,8 @@ public abstract class DefaultAbstractThymeleafConfiguration extends ThymeleafCon
 	 * @see https://github.com/ultraq/thymeleaf-layout-dialect
 	 * @see https://github.com/thymeleaf/thymeleaf-extras-springsecurity3
 	 * @see https://github.com/thymeleaf/thymeleaf-extras-conditionalcomments
+	 * @see https://github.com/thymeleaf/thymeleaf-extras-tiles2
+	 * @see https://github.com/mxab/thymeleaf-extras-data-attribute
 	 */
 	@Override
 	protected Set<IDialect> getAdditionalDialects() {
@@ -49,7 +51,7 @@ public abstract class DefaultAbstractThymeleafConfiguration extends ThymeleafCon
 					IDialect layoutDialect = (IDialect) oLayoutDialect;
 					dialects.add(layoutDialect);
 				} catch (Exception e) {
-					logger.error("Error creating LayoutDialect", e);
+					logger.error("Error creating Dialect instance " + dialect, e);
 				}
 			}
 		}

@@ -107,6 +107,13 @@
 						<localCheckout>true</localCheckout>
 						<tagNameFormat>v@{project.version}</tagNameFormat>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.scm</groupId>
+							<artifactId>maven-scm-api</artifactId>
+							<version>1.9</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>

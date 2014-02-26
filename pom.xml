@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 	<groupId>org.sevensource</groupId>
 	<artifactId>thymeleaf4spring</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>Thymeleaf 4 Spring</name>
 	<description>Just some small utilities to quickly configure Thymeleaf with Spring MVC</description>
 
@@ -113,6 +113,11 @@
 							<artifactId>maven-scm-api</artifactId>
 							<version>1.9</version>
 						</dependency>
+						<dependency>
+					          <groupId>org.apache.maven.scm</groupId>
+					          <artifactId>maven-scm-provider-gitexe</artifactId>
+					          <version>1.9</version>
+					</dependency>
 					</dependencies>
 				</plugin>
 			</plugins>

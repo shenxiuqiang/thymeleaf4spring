@@ -30,10 +30,9 @@ public abstract class ThymeleafConfigurationSupport {
 	public ThymeleafViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 		thymeleafViewResolver.setCharacterEncoding(getCharacterEncoding());
-		thymeleafViewResolver.setCache( isCaching() );
+		thymeleafViewResolver.setCache(isCaching());
 		thymeleafViewResolver.setViewClass(getViewClass());
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
-		thymeleafViewResolver.setCharacterEncoding(getCharacterEncoding());
 		
 		return configureViewResolver( thymeleafViewResolver );
 	}
